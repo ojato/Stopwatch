@@ -134,7 +134,7 @@ if __name__ == '__main__':
 	if not os.path.isdir(folder):
 		os.makedirs(folder)
 		os.chdir(folder)
-		os.mknod('history.txt')
+		if os.name != 'nt': os.mknod('history.txt')
 	else:
 		os.chdir(folder)
 	__version__ = '0.0.1'
