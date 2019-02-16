@@ -129,7 +129,7 @@ def main():
 	return
 
 if __name__ == '__main__':
-	home = os.expanduser('~')
+	home = os.path.expanduser('~')
 	folder = (home+'\\stopwatch') if os.name == 'nt' else home+'/.stopwatch'
 	if not os.path.isdir(folder):
 		os.makedirs(folder)
