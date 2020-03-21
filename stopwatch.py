@@ -64,6 +64,7 @@ class stopwatch:
 			self.secondsPast += 1
 			self.runningTime.set(time.strftime('%H:%M:%S', time.gmtime(self.secondsPast)))
 		self._job = self.master.after(1000, self.increment)
+
 	def start(self):
 		self.toggleString.set('Pause')
 		self.toggleButton.configure(relief='raised')
@@ -102,14 +103,12 @@ class stopwatch:
 			with open('history.txt', 'a') as historyTXT:
 				historyTXT.write('\tSTOPPED\t\n')
 		self.answer = simpledialog.askstring('Input', 'Set Window Title')
-		if self.answer is not None:
-
-			self.master.title(self.answer)
-			with open('history.txt', 'a') as historyTXT:
+		with open('history.txt', 'a') as historyTXT:
+			if self.answer is not None:
+				self.master.title(self.answer)
 				historyTXT.write('\t' + self.answer + '\t' +time.strftime('%Y:%m:%d\t%H:%M:%S') + '\t\n')
-		else:
-			self.master.title('Simple Stopwatch')
-			with open('history.txt', 'a') as historyTXT:
+			else:
+				self.master.title('Simple Stopwatch')
 				historyTXT.write('\t' + time.strftime('%Y:%m:%d\t%H:%M:%S') + '\t\n')
 
 		self.runningTime.set('00-00-00')
@@ -122,15 +121,15 @@ class stopwatch:
 			with open('history.txt', 'a') as historyTXT:
 				historyTXT.write('\tSTOPPED\t\n')
 			self.master.destroy()
+
 def main():
 	root = tk.Tk()
 	stopwatch_gui = stopwatch(root)
 	root.mainloop()
-	return
 
 if __name__ == '__main__':
 	home = os.path.expanduser('~')
-	folder = (home+'\\stopwatch') if os.name == 'nt' else home+'/.stopwatch'
+	folder = os.path.join(home, 'stopwatch')
 	if not os.path.isdir(folder):
 		os.makedirs(folder)
 		os.chdir(folder)
