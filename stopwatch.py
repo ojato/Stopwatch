@@ -146,6 +146,7 @@ class stopwatch:
 
 def main():
     root = tk.Tk()
+    root = wm_iconbitmap("Iconsmind-Outline-Stopwatch-2.ico")
     stopwatch_gui = stopwatch(root)
     root.mainloop()
 
